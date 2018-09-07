@@ -35,9 +35,11 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
 
         # For each sample point, set the cluster center with minimal distance, tip: use np.argmin to find the index that has minimal value 
         # [TODO] Fill your code here
+        sample_cluster_index = np.argmin(sample_cluster_distance, axis=0)
 
         # Re-compute the distance by average the cluster sampled points, and update the 'cluster_loc'
         # [TODO] Fill your code here
+
 
         # Compute total avg. distance variance
         # [TODO] Fill your code here
@@ -59,14 +61,14 @@ points = np.load('k-mean_samples.npy')
 # Do K-Mean cluster
 cluster_loc, cluster_indices = k_mean(points, num_clusters=6)
 
-# Draw the clusters
-colors = ['b', 'g', 'r', 'c', 'm', 'y', 'w']
-for cluster_idx in range(0, cluster_loc.shape[0]):
-    sub_sample_set = points[cluster_indices == cluster_idx]
-    plt.scatter(sub_sample_set[:, 0], sub_sample_set[:, 1], c=colors[cluster_idx], label='group %d' % cluster_idx)
-
-plt.scatter(cluster_loc[:, 0], cluster_loc[:, 1], c='k', label='center')
-plt.legend()
-plt.grid(True)
-plt.title("K-Mean Cluster (%d centers)" % cluster_loc.shape[0])
-plt.show()
+# # Draw the clusters
+# colors = ['b', 'g', 'r', 'c', 'm', 'y', 'w']
+# for cluster_idx in range(0, cluster_loc.shape[0]):
+#     sub_sample_set = points[cluster_indices == cluster_idx]
+#     plt.scatter(sub_sample_set[:, 0], sub_sample_set[:, 1], c=colors[cluster_idx], label='group %d' % cluster_idx)
+#
+# plt.scatter(cluster_loc[:, 0], cluster_loc[:, 1], c='k', label='center')
+# plt.legend()
+# plt.grid(True)
+# plt.title("K-Mean Cluster (%d centers)" % cluster_loc.shape[0])
+# plt.show()
