@@ -19,7 +19,7 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
     sample_cluster_distance = np.zeros((num_clusters, samples.shape[0]), dtype=np.float32) 
 
     # Step 1: Random choose initial points as cluster center
-    random_indices = np.arange(0, samples.shape[0], dtype=np.int)
+    random_indices = np.arange(samples.shape[0], dtype=np.int)
     np.random.shuffle(random_indices)
     cluster_loc = samples[random_indices[:num_clusters], :]
     old_distance_var = -10000
@@ -31,6 +31,7 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
         
         # Compute the distance towards the cluster center, you can use 'np.linalg.norm' to compute L2 distance
         # [TODO] Fill your code here
+        sample_cluster_distance = np.sum(samples**2, axis=1).T + np.sum(cluster_loc**2, axis=1, keepdims=True) - 2 * np.dot(cluster_loc, samples.T)
 
         # For each sample point, set the cluster center with minimal distance, tip: use np.argmin to find the index that has minimal value 
         # [TODO] Fill your code here
