@@ -25,7 +25,7 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
     old_distance_var = -10000
 
     # Step 2:Iteration
-    for itr in range(0, max_iter):
+    for itr in range(max_iter):
 
         # Instruction: Fill the following blanks with your implementation, you should finish the implementation with less than 25 lines of code. 
         
@@ -39,7 +39,9 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
 
         # Re-compute the distance by average the cluster sampled points, and update the 'cluster_loc'
         # [TODO] Fill your code here
-
+        for i in range(num_clusters):
+            cluster_i = (sample_cluster_index == i)
+            cluster_loc[i, :] = np.mean(samples[cluster_i, :], axis=0)
 
         # Compute total avg. distance variance
         # [TODO] Fill your code here
