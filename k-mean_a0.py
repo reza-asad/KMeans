@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
+def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100, seed=None):
     """
     K-Mean Cluster Implementation
     :param samples: samples with dimension of (num_points, 2)
@@ -13,10 +13,14 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
     """
 
     # Cluster indices
+    if seed is None:
+        np.random.seed(231)
+    else:
+        np.random.seed(seed)
     sample_cluster_index = np.zeros(samples.shape[0], dtype=np.int)
 
     # Distance cache, dim: (num_clusters, num_samples)
-    sample_cluster_distance = np.zeros((num_clusters, samples.shape[0]), dtype=np.float32) 
+    sample_cluster_distance = np.zeros((num_clusters, samples.shape[0]), dtype=np.float32)
 
     # Step 1: Random choose initial points as cluster center
     random_indices = np.arange(samples.shape[0], dtype=np.int)
@@ -26,8 +30,7 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
 
     # Step 2:Iteration
     for itr in range(max_iter):
-
-        # Instruction: Fill the following blanks with your implementation, you should finish the implementation with less than 25 lines of code. 
+        # Instruction: Fil the following blanks with your implementation, you should finish the implementation with less than 25 lines of code.
         
         # Compute the distance towards the cluster center, you can use 'np.linalg.norm' to compute L2 distance
         sample_cluster_distance = np.sum(samples**2, axis=1).T + np.sum(cluster_loc**2, axis=1, keepdims=True) - 2 * np.dot(cluster_loc, samples.T)
@@ -36,10 +39,9 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100):
         sample_cluster_index = np.argmin(sample_cluster_distance, axis=0)
 
         # Re-compute the distance by average the cluster sampled points, and update the 'cluster_loc'
-
         avg_distance_var = 0
         for i in range(num_clusters):
-            cluster_i = samples[sample_cluster_index==i, :]
+            cluster_i = samples[sample_cluster_index == i, :]
             cluster_loc[i, :] = np.mean(cluster_i, axis=0)
             # update total avg. distance variance
             avg_distance_var += np.sum((cluster_i - cluster_loc[i, :])**2)
