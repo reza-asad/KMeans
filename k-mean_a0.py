@@ -12,11 +12,10 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100, seed=None):
     :return sample_cluster_index: cluster indices for each sample points 
     """
 
+    # Add seed for consistent results.
+    np.random.seed(231) if seed is None else np.random.seed(seed)
+
     # Cluster indices
-    if seed is None:
-        np.random.seed(231)
-    else:
-        np.random.seed(seed)
     sample_cluster_index = np.zeros(samples.shape[0], dtype=np.int)
 
     # Distance cache, dim: (num_clusters, num_samples)
