@@ -29,15 +29,13 @@ def k_mean(samples, num_clusters, stop_epsion=1e-2, max_iter=100, seed=None):
 
     # Step 2:Iteration
     for itr in range(max_iter):
-        # Instruction: Fil the following blanks with your implementation, you should finish the implementation with less than 25 lines of code.
-        
-        # Compute the distance towards the cluster center, you can use 'np.linalg.norm' to compute L2 distance
+        # Compute the distance towards the cluster center.
         sample_cluster_distance = np.sum(samples**2, axis=1).T + np.sum(cluster_loc**2, axis=1, keepdims=True) - 2 * np.dot(cluster_loc, samples.T)
 
-        # For each sample point, set the cluster center with minimal distance, tip: use np.argmin to find the index that has minimal value 
+        # For each sample point, set the cluster center with minimal distance.
         sample_cluster_index = np.argmin(sample_cluster_distance, axis=0)
 
-        # Re-compute the distance by average the cluster sampled points, and update the 'cluster_loc'
+        # Update the location of centroids in each cluster.
         avg_distance_var = 0
         for i in range(num_clusters):
             cluster_i = samples[sample_cluster_index == i, :]
